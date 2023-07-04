@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int myval(unordered_map<int,int> mp)
+{
+    priority_queue<int> pq;
+    int x;
+    
+    for(auto e:mp)
+    {
+        if(e.second==1)
+        pq.push(e.first);
+    }
+    if(pq.empty()==false)
+    {
+        x=pq.top();
+        return x;    
+    }
+    return -1;
+}
+
+int main()
+{
+    cout<<"Enter the value of n,m and k\n";
+    int m,n,k;
+    cin>>n>>m>>k;
+    cout<<"Enter the elements\n";
+    int a[m];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    unordered_map<int,int> h;
+    for(int i=0;i<m;i++)
+    h[a[i]]++;
+    vector<int> xx;
+    xx.push_back(myval(h));
+    for(int i=m;i<n;i++)
+    {
+        h[a[i-m]]--;
+        h[a[i]]++;
+        int ans=myval(h);
+        xx.push_back(ans);
+    }
+    for(int i=0;i<xx.size();i++)
+    cout<< xx[i]<<endl;
+}

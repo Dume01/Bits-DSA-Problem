@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+bool compare(string a, string b) {
+    return a + b > b + a;
+}
+
+string largestNumber(vector<int>& nums) {
+    vector<string> str_nums;
+    for (int i = 0; i < nums.size(); i++) {
+        str_nums.push_back(to_string(nums[i]));
+    }
+    sort(str_nums.begin(), str_nums.end(), compare);
+    string result = "";
+    for (int i = 0; i < str_nums.size(); i++) {
+        result += str_nums[i];
+    }
+    if (result[0] == '0') {
+        return "0";
+    }
+    return result;
+}
+
+int main() {
+    vector<int> nums = {94,546,548,9};
+    cout << largestNumber(nums) << endl; // Output: 531210
+    return 0;
+}

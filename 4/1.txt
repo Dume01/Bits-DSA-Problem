@@ -1,0 +1,62 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Interval
+{
+    int st;
+    int end;
+};
+typedef struct Interval inter;
+
+int mycomp(const void* a, const void* b)
+{
+    inter* data_1 = (inter*)a;
+    inter* data_2 = (inter*)b;
+    return (data_1->st - data_2->st);
+}
+
+int max(int num1, int num2)
+{
+    return (num1 > num2) ? num1 : num2;
+}
+
+void mergeIntervals(inter arr[], int n)
+{
+    
+    qsort(arr, n, sizeof(inter), mycomp);
+ 
+    int index = 0; 
+    for (int i = 1; i < n; i++) {
+        if (arr[index].end >= arr[i].st) {
+            arr[index].end = max(arr[index].end, arr[i].end);
+        }
+        else {
+            index++;
+            arr[index] = arr[i];
+        }
+    }
+ 
+    printf("\n The Merged Intervals are: ");
+    for (int i = 0; i <= index; i++)
+        printf("[%d, %d]", arr[i].st, arr[i].end);
+}
+
+int main() {
+    // Write C code here
+    printf("Enter the total slots\n");
+    int n;
+    scanf("%d",&n);
+    
+    inter arr[n];
+    printf("Enter the time of entry and exit\n");
+    for(int i=0;i<n;i++)
+    {   
+        scanf("%d",&arr[i].st);
+        scanf("%d",&arr[i].end);
+    }
+    
+    mergeIntervals(arr,n);
+    return 0;
+    
+}

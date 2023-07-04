@@ -1,0 +1,42 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define int long long
+
+
+int main() {
+    // Write C code here
+    printf("Enter the total students\n");
+    int n=0;
+    scanf("%lld",&n);
+    printf("Enter the size of team\n");
+    int k=0;
+    scanf("%lld",&k);
+    printf("Enter the threshold\n");
+    int t=0;
+    scanf("%lld",&t);
+    
+    int a[n];
+    
+    printf("Enter the elements\n");
+    for(int i=0;i<n;i++)
+    scanf("%lld",&a[i]);
+    
+    int cs=0;
+    
+    for(int i=0;i<k;i++)
+    {   
+        cs+=a[i];
+    }
+    int c=0;
+    if((cs/k)>=t)
+        c++;
+    for(int i=k;i<n;i++)
+    {   
+        cs+=a[i]-a[i-k];
+        printf("%lld\n",cs);
+        if((cs/k)>=t)
+        c++;
+        
+    }
+    printf("%lld",c);
+}

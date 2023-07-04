@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+const int MAXN = 1005;
+int n;
+int a[MAXN];
+int dp[MAXN][MAXN];
+
+int maxDifference(int left, int right) {
+    if (left > right) {
+        return 0;
+    }
+    if (dp[left][right] != -1) {
+        return dp[left][right];
+    }
+    int scoreL = a[left] + maxDifference(left + 1, right);
+    int scoreR = a[right] + maxDifference(left, right - 1);
+    if ((n - (right - left + 1)) % 2 == 0) {
+        dp[left][right] = max(scoreL, scoreR);
+    } else {
+        dp[left][right] = min(maxDifference(left + 1, right) - a[left], maxDifference(left, right - 1) - a[right]);
+    }
+    return dp[left][right];
+}
+
+int main() {
+    memset(dp, -1, sizeof(dp));
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    cout << maxDifference(0, n - 1) << endl;
+    return 0;
+}

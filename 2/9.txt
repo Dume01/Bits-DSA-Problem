@@ -1,0 +1,58 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+struct BitsId
+{
+    char branch[3];
+    char email[37];
+    char id[13];
+};
+typedef struct BitsId Bi; 
+
+int main() {
+    // Write C code here
+    Bi fa;
+    printf("Enter your Email ID\n");
+    gets(fa.email);
+    printf("Enter your Branch\n");
+    gets(fa.branch);
+    int c=0;
+    for(int i=1;i<5;i++)
+    {
+        fa.id[c]=fa.email[i];
+        c++;
+    }
+    if(fa.branch[1]=='S')
+    {
+        fa.id[4]='A';
+        fa.id[5]='7';
+        fa.id[6]='P';
+        fa.id[7]='S';
+    }
+    else if(fa.branch[1]=='C')
+    {
+        fa.id[4]='A';
+        fa.id[5]='A';
+        fa.id[6]='P';
+        fa.id[7]='S';
+    }
+    else 
+    {
+        fa.id[4]='A';
+        fa.id[5]='3';
+        fa.id[6]='P';
+        fa.id[7]='S';
+    }
+    c=8;
+    for(int i=5;i<9;i++)
+    {
+        fa.id[c]=fa.email[i];
+        c++;
+    }
+    fa.id[12]='H';
+    for(int i=0;i<13;i++)
+    {
+        printf("%c",fa.id[i]);
+    }
+    return 0;
+}

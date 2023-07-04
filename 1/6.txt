@@ -1,0 +1,61 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdbool.h>
+bool isPrime(int num)
+{
+    if(num==1)
+    return false;
+    for(int i=2;i*i<=num;i++)
+    {
+        if(num%i==0) return false;
+    }
+    return true;
+}
+
+int main() {
+    printf("Enter A and B \n");
+    int A,B;
+    scanf("%d",&A);
+    scanf("%d",&B);
+    if(A>B) 
+    {
+        printf("Invalid Input");
+        return 0;
+    }
+    int x=B-A;
+    // if(x>106) 
+    // {
+    //     printf("Invalid Input");
+    //     return 0;
+    // }
+    int dig[10];
+    for(int i=0;i<10;i++)
+    dig[i]=0;
+    for(int i=A;i<=B;i++)
+    {
+        if(isPrime(i))
+        {
+            int temp=i;
+            while(temp!=0)
+            {
+                int d=(temp%10)-1;
+                dig[d]++;
+                temp/=10;
+            }
+        }
+    }
+    int index=0;
+    int max=dig[0];
+    for(int i=0;i<10;i++)
+    {
+        if(max<dig[i])
+        {
+            max=dig[i];
+            index=i;
+        }
+    }
+    //index+=1;
+    printf("%d ",(index+1));
+    printf("%d",dig[index]);
+    
+}

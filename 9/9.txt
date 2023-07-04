@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+int main()
+{
+    
+    int n;
+    cin>>n;
+    int a[n],b[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i]>>b[i];
+    }
+    int petrol=a[0]-b[0],start=0,end=1;
+    while(end!=start || petrol<0)
+    {
+        while(petrol<0 && start!=end)
+        {
+            petrol-=a[start]-b[start];
+            start=(start+1)%n;
+            if(start==0)
+            {
+                cout<<"-1\n";
+                return 0;
+            }
+        }
+        petrol+=a[end]-b[end];
+        end=(end+1)%n;
+    }
+    cout<<start<<"\n";
+    return 0;
+}

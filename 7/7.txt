@@ -1,0 +1,47 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <queue>
+using namespace std;
+int main() {
+    // Write C++ code here
+    cout << "Enter the value of n\n";
+    int n;
+    cin >> n;
+    cout << "Enter the  value of k\n";
+    int k;
+    cin >> k;
+    cout << "Enter the value of array\n";
+    priority_queue<int> pq;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        pq.push(x);
+    }
+    int temp=k;
+    int sum=0;
+    while(temp>0)
+    {
+        int y=pq.top();
+        int m=y;
+        int f=0;
+        pq.pop();
+        if(y%2==0)
+        {
+             y=y/2;
+             f=m-y;
+        }
+       
+        else
+        {
+            y=y/2+1;    
+            f=m-y;
+        }
+        
+        sum+=y;
+        pq.push(f);
+        temp--;
+    }
+    cout<<sum;
+    return 0;
+}

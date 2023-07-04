@@ -1,0 +1,73 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+int main() {
+    printf("Enter the dimensions of the array A \n");
+    int m,n;
+    scanf("%d",&m);
+    scanf("%d",&n);
+    if(m==0||n==0)
+    {
+        printf("Invalid dimensions");
+        return 0;
+    }
+    int A[m][n];
+    
+    printf("Enter the elements of the element A \n");
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {scanf("%d",&A[i][j]);
+        }
+    }
+    int sum=0;
+    int B[m][n];
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            sum+=A[i][j];
+            B[i][j]=sum;
+        }
+    }
+    printf("Enter Row Index \n");
+    int ri;
+    scanf("%d",&ri);
+    printf("Enter Column Index \n");
+    int ci;
+    scanf("%d",&ci);
+    printf("Enter Row Height \n");
+    int rh;
+    scanf("%d",&rh);
+    printf("Enter Row Height \n");
+    int ch;
+    scanf("%d",&ch);
+    if(ri<0||ci<0||rh<1||ch<1)
+    { printf("Inavlid Input");
+      return 0;
+    }
+    
+    int x=ri+rh;
+    int y=ci+ch;
+    if(x>m||y>n)    
+    {
+        printf("Not Possible");
+        return 0;
+    }
+    for(int i=ri;i<x;i++)
+    {
+        for(int j=ci;j<y;j++)
+        {
+            printf("%d ",B[i][j]);
+        }
+        printf("\n");
+    }
+    sum=0;
+     for(int i=ri;i<x;i++)
+    {
+        for(int j=ci;j<y;j++)
+        {
+            sum+=B[i][j];
+        }
+    }
+    printf("Sum = %d",sum);
+}

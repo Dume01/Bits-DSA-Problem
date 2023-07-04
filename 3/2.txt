@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct Node_dll
+{
+   int data;
+   struct Node_dll *next;
+   struct Node_dll *prev;
+};
+typedef struct Node_dll Dll;
+
+Dll *createNode(int val)
+{
+    Dll *nn=malloc(sizeof(Dll));
+    nn->data=val;
+    nn->next=NULL;
+    nn->prev=NULL;
+    return nn;
+}
+
+Dll *addList(Dll *head,int val)
+{
+    Dll *nn=createNode(val);
+    if(head==NULL)
+    return nn;
+    Dll *curr=head;
+    while(curr->next!=NULL)
+    curr=curr->next;
+    curr->next=nn;
+    nn->prev=curr;
+    return nn;
+}
+
+Dll *readList()
+{
+    int n;
+    printf("Enter the initial dimension\n");
+    scanf("%d",&n);
+    printf("Enter the elements in the dll\n");
+    Dll *head=NULL;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        scanf("%d",&x);
+        if(head==NULL)
+        head=addList(head,x);
+        else
+        addList(head,x);
+    }
+    return head;
+}
+
+void printList(Dll *head)
+{
+    Dll *curr=head;
+    while(curr!=NULL)
+    {
+        printf("%d ",curr->data);
+        curr=curr->next;
+    }
+}
+
+int main() {
+    // Write C code here
+    Dll *head=readList();
+    bool flag=true;
+    printf("1-ADD Song\n");
+    printf("2-Print Current Song\n");
+    printf("3-Play Next Song\n");
+    printf("4-Play prev Song\n");
+    printf("5-End program\n");
+    printf("6-Enter the song\n");
+    while(flag==true)
+    {
+        int xy;
+        scanf("%d",&xy);
+        switch(xy)
+        {
+            case 1: printf("Enter the song\n");
+                    int m;
+                    scanf("%d",&m);
+                    addList(head,m);
+                    break;
+            case 2: if(head==NULL)
+                    {
+                        printf("No song\n");
+                        break;
+                    }
+                    else
+                    printf("%d \n",head->data);
+                    break;
+            case 3: if(head->next==NULL)
+                    {
+                        printf("%d \n",head->data);
+                        break;
+                    }
+                    head=head->next;
+                    printf("%d \n",head->data);
+                    break;
+            case 4: if(head->prev==NULL)
+                    {
+                        printf("%d \n",head->data);
+                        break;
+                    }
+                    head=head->prev;
+                    printf("%d \n",head->data);
+                    break;
+            case 5: printf("Terminating the program\n");
+                    return 0;
+            case 6: printf("Enter your song\n");
+                    int p;
+                    scanf("%d",&p);
+                    Dll *nn=createNode(p);
+                    if(head->next==NULL)
+                    {
+                        head->next=nn;
+                        nn->prev=head;
+                        break;
+                    }
+                    nn->next=head->next;
+                    nn->prev=head;
+                    head->next->prev=nn;
+                    head->next=nn;
+                    break;
+        }
+        
+    }
+    return 0;
+}

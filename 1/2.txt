@@ -1,0 +1,66 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    // Write C code here
+    printf("Enter the dimensions of matrix A\n");
+    int m,n;
+    scanf("%d",&m);
+    scanf("%d",&n);
+    int A[m][n];
+    printf("Enter the elements of matrix A\n");
+    for(int i=0;i<m;i++)
+        for(int j=0;j<n;j++)
+            scanf("%d",&A[i][j]);
+    printf("\n");
+    printf("Enter the dimensions of matrix B\n");
+    int p,q;
+    scanf("%d",&p);
+    scanf("%d",&q);
+    int B[p][q];
+    printf("Enter the elements of matrix B\n");
+    for(int i=0;i<p;i++)
+        for(int j=0;j<q;j++)
+            scanf("%d",&B[i][j]);
+    if(p>m||q>n)
+    {
+        printf("Invalid Input");
+        return 0;
+    }
+    
+    int as=B[0][0];
+    int cmp=0;
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(A[i][j]==as && (i+p)<m && (j+q)<n)
+            {   bool pol=true;
+                int x=i;
+                int y1=j;
+                cmp=0;
+                for(int q1=0;q1<p;q1++)
+                {   
+                    for(int w=0;w<q;w++)
+                    {   printf("%d",A[x][y1]);
+                        if(B[q1][w]!=A[x][y1])
+                        {
+                            pol=false;
+                            break;
+                        }
+                        y1++;
+                        cmp++;
+                    }
+                    if(pol==false)
+                    break;
+                    cmp++;
+                    x++;
+                }
+            }
+        }
+    }
+    if(cmp==(p*q)) printf("Yes");
+    
+    return 0;
+}

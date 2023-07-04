@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <limits.h>
+
+int max(int a, int b)
+{
+    return (a > b) ? a : b;
+}
+
+int my_min(int a, int b)
+{
+    return (a < b) ? a : b;
+}
+
+int solve(int start, int nums[], int v[], int k, int n)
+{
+    if (start == n)
+    {
+        int maxm = INT_MIN;
+        for (int i = 0; i < k; i++)
+        {
+            maxm = max(maxm, v[i]);
+        }
+        return maxm;
+    }
+    int ans = INT_MAX;
+    for (int i = 0; i < k; i++)
+    {
+        v[i] += nums[start];
+        int res = solve(start + 1, nums, v, k, n);
+        ans = my_min(ans, res);
+        v[i] -= nums[start];
+    }
+    return ans;
+}
+
+int distribute(int nums[], int n, int k)
+{
+    int v[k];
+    for (int i = 0; i < k; i++)
+    {
+        v[i] = 0;
+    }
+    int ans = solve(0, nums, v, k, n);
+    return ans;
+}
+
+int main()
+{
+    int n, k;
+    scanf("%d %d", &n, &k);
+    int nums[n];
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &nums[i]);
+    }
+    printf("%d", distribute(nums, n, k));
+    return 0;
+}
+

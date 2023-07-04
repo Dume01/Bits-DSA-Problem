@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout << "Enter the value of n\n";
+    cin >> n;
+    int a[n];
+    cout << "Enter the values of array\n";
+    for(int i=0;i<n;i++)
+    cin >> a[i];
+    int finsum=INT_MIN;
+    int sum=0;
+    for(int i=0;i<n;i++)
+    {
+        sum+=a[i];
+        if(sum < 0)
+        sum=0;
+        finsum=max(finsum,sum);
+    }
+    cout << finsum;
+}

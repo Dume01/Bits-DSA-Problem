@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int val;
+    Node *left;
+    Node *right;
+
+    Node(int x){
+        val=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+Node *buildTree(vector<int> &v,int i,int n){
+    if(i>=n)
+        return NULL;
+
+    Node *root = new Node(v[i]);
+    root->left = buildTree(v,2*i+1,n);
+    root->right = buildTree(v,2*i+2,n);
+    return root;
+}
+
+Node *buildBeautifulBST(Node *root,int l,int r){
+    if(root==NULL)
+        return NULL;
+    
+    root->left = buildBeautifulBST(root->left,l,r);
+    root->right = buildBeautifulBST(root->right,l,r);
+
+    if(root->val<l){
+        Node *rchild = root->right;
+        delete root;
+        return rchild;
+    }
+    if(root->val>r){
+        Node *lchild = root->left;
+        delete root;
+        return lchild;
+    }
+    return root;
+}
+
+void postorder(Node *root){
+    if(root==NULL)
+        return;
+    
+    postorder(root->left);
+    postorder(root->right);
+    cout<<root->val<<" ";
+}
+
+void inorder(Node *root){
+    if(root==NULL)
+        return;
+
+    inorder(root->left);
+    cout<<root->val<<" ";
+    inorder(root->right);
+
+}
+int main(){
+    int n,l,r;
+    cin>>n>>l>>r;
+
+    vector<int> v(n);
+    for(int i=0;i<n;i++)    
+        cin>>v[i];
+
+    Node *root = buildTree(v,0,n);
+    root = buildBeautifulBST(root,l,r);
+    postorder(root);
+}

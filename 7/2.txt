@@ -1,0 +1,87 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+/* A binary tree node has data, pointer to left child
+and a pointer to right child */
+class node
+{
+	public:
+	int data;
+	node* left;
+	node* right;
+};
+
+int search(int arr[], int strt, int end, int value);
+node* newNode(int data);
+
+node* buildTree(int in[], int pre[], int inStrt, int inEnd)
+{
+	static int preIndex = 0;
+	if (inStrt > inEnd)
+		return NULL;
+
+	node* tNode = newNode(pre[preIndex++]);
+	if (inStrt == inEnd)
+		return tNode;
+	int inIndex = search(in, inStrt, inEnd, tNode->data);
+	tNode->left = buildTree(in, pre, inStrt, inIndex - 1);
+	tNode->right = buildTree(in, pre, inIndex + 1, inEnd);
+
+	return tNode;
+}
+int search(int arr[], int strt, int end, int value)
+{
+	int i;
+	for (i = strt; i <= end; i++)
+	{
+		if (arr[i] == value)
+			return i;
+	}
+}
+node* newNode(int data)
+{
+	node* Node = new node();
+	Node->data = data;
+	Node->left = NULL;
+	Node->right = NULL;
+
+	return (Node);
+}
+
+/* This function is here just to test buildTree() */
+void printlevel(node *root)
+{
+    if(root==NULL) return;
+    queue<node *> q;
+    q.push(root);
+    q.push(NULL);
+    while(q.size()>1)
+    {
+        node *c=q.front();
+        q.pop();
+        if(c==NULL)
+        {
+            q.push(NULL);
+            
+            continue;
+        }
+        cout<<c->data<<" ";
+        if(c->left!=NULL) q.push(c->left);
+        if(c->right!=NULL) q.push(c->right);
+        
+    }
+        
+    
+}
+
+int main()
+{
+	int pre[] = { 3,9,20,15,7 };
+	int in[] = { 9,3,15,20,7 };
+	int len = sizeof(in) / sizeof(in[0]);
+	node* root = buildTree(in, pre, 0, len - 1);
+
+	cout << "Inorder traversal of the constructed tree is \n";
+	printlevel(root);
+}

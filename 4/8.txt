@@ -1,0 +1,48 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+    printf("Enter the number of kings\n");
+    int k=0;
+    scanf("%d",&k);
+    
+    printf("Enter the number of Banquets\n");
+    int b;
+    scanf("%d",&b);
+    
+    int max=((k-b+1)*(k-b))/2;
+    
+    int baq[b];
+    for(int i=0;i<b;i++)
+    baq[i]=0;
+    
+    int in=k/b;
+    for(int i=0;i<b;i++)
+    {
+        baq[i]=in;
+    }
+    k=k-(in*b);
+    int c=0;
+    
+    while(k>
+ 0)
+    {
+        baq[c]+=1;
+        k--;
+        c++;
+    }
+    printf("\n");
+    for(int i=0;i<b;i++)
+    printf("%d ",baq[i]);
+    printf("\n");
+    
+    int min=0;
+    for(int i=0;i<b;i++)
+    {
+        min+=((baq[i])*(baq[i]-1))/2;
+    }
+    
+    printf("%d %d",min,max);
+    return 0;
+}

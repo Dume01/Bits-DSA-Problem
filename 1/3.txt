@@ -1,0 +1,68 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    
+    
+    printf("Enter the length of the array\n");
+    int n=0;
+    scanf("%d",&n);
+    
+    printf("Enter the sum.\n");
+    int s;
+    scanf("%d",&s);
+    
+    int A[101];
+    int top=-1;
+    bool dp[101][101];
+    int stack[101];
+    
+    printf("Enter the elements of the array\n");
+    
+    for(int i=0;i<n;i++)
+    scanf("%d",&A[i]);
+    
+    for(int i=0;i<=n;i++)
+    dp[i][0]=true;
+    
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=s;j++)
+        {
+            dp[i][j]=dp[i-1][j];
+            if(j>=A[i-1]&&dp[i-1][j-A[i-1]])
+            {
+                dp[i][j]=true;
+            }
+        }
+    }
+    
+    if(dp[n][s])
+    {
+        printf("POSSIBLE\n");
+        int i=n,j=s;
+        while(j>0&&i>0)
+        {
+            if(dp[i-1][j])
+            {
+                i--;
+            }
+            else
+            {
+                stack[++top]=i-1;
+                j-=A[i-1];
+                i--;
+            }
+        }
+        while(top>=0)
+        {
+            printf("%d ",stack[top--]);
+        }
+    }
+    else
+    {
+        printf("NOT POSSIBLE");
+    }
+    return 0;
+}

@@ -1,0 +1,33 @@
+#include <iostream>
+#include <stack>
+#include <cstring>
+using namespace std;
+
+int longestRegularBracketSequence(string s) {
+    int n = s.length();
+    stack<int> st;
+    st.push(-1);
+    int maxLength = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (s[i] == '(') {
+            st.push(i);
+        } else {
+            st.pop();
+            if (st.empty()) {
+                st.push(i);
+            } else {
+                maxLength = max(maxLength, i - st.top());
+            }
+        }
+    }
+
+    return maxLength;
+}
+
+int main() {
+    string s;
+    cin >> s;
+    cout << longestRegularBracketSequence(s) << endl;
+    return 0;
+}

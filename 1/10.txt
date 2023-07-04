@@ -1,0 +1,58 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int str_length(char str[]) {
+    int count; 
+    for (count = 0; str[count] != '\0'; ++count);
+    return count; 
+}
+
+int main() {
+    // Write C code here
+    printf("Enter the string S and A\n");
+    char S[1000];
+    scanf("%s",&S);
+    char A[1000];
+    scanf("%s",&A);
+    if(str_length(A)!=str_length(S))
+    {
+        printf("Invalid Input");
+        return 0;
+    }
+    
+    char ch[256];
+    for(int i=0;i<256;i++)
+    ch[i]=0;
+    for(int i=0;i<str_length(S);i++)
+    {   int c1=S[i];
+        int c2=A[i];
+        ch[c1]++;
+        ch[c2]--;
+    }
+    for(int i=0;i<256;i++)
+    {
+        if(ch[i]!=0)
+        {
+            printf("NOT Possible");
+            return 0;
+        }
+    }
+    printf("Possible\n");
+    int pos[str_length(S)];
+    int c=0;
+    for(int i=0;i<str_length(S);i++)
+    {
+        int a=A[i];
+        for(int j=0;j<str_length(A);j++)
+        {   
+            int b=S[j];
+            if(a==b)
+            {   
+                pos[c]=j+1;
+                c++;
+            }
+        }
+    }
+    for(int i=0;i<str_length(S);i++)
+    printf("%d ",pos[i]);
+}

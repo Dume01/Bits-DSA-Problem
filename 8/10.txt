@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int countContiguousSequences(vector<int>& bulbs, int k) {
+    int n = bulbs.size();
+    vector<int> prefixSum(n+1);
+    for (int i = 1; i <= n; i++) {
+        prefixSum[i] = prefixSum[i-1] + bulbs[i-1];
+    }
+
+    int left = 0, right = 0;
+    int count = 0;
+    while (right < n) {
+        if (prefixSum[right+1] - prefixSum[left] <= k) {
+            count += right - left + 1;
+            right++;
+        } else {
+            left++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    vector<int> bulbs = {1, 1,1,1};
+    int k = 4;
+    int count = countContiguousSequences(bulbs, k);
+    cout << count << endl; // Output: 11
+    return 0;
+}

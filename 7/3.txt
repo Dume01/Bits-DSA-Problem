@@ -1,0 +1,67 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *left;
+    Node *right;
+    
+    Node(int val)
+    {
+        data=val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+Node *buildTree(int a[],int i,int n)
+{   
+    if(i>=n)
+    {
+        return NULL;
+    }
+    Node *root=new Node(a[i]);
+    root->left=buildTree(a,2*i+1,n);
+    root->right=buildTree(a,2*i+2,n);
+    return root;
+}
+
+int c=0;
+bool hasPathSum(Node* Node, int sum)
+{
+	if (Node == NULL)
+		return 0;
+
+	bool ans = 0;
+
+	int subSum = sum - Node->data;
+    if(Node->data==-1)
+    subSum++;
+	
+	if (subSum == 0 && Node->left == NULL && Node->right == NULL)
+		c++;
+	if (Node->left)
+		ans = ans || hasPathSum(Node->left, subSum);
+	if (Node->right)
+		ans = ans || hasPathSum(Node->right, subSum);
+}
+
+int main() {
+    // Write C++ code here
+    cout << "enter the value of the nodes\n";
+    int n;
+    cin >> n;
+    int a[n];
+    int sum;
+    cout<< "enter the sum\n";
+    cin >> sum;
+    cout << "enter the values of the nodes\n";
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    Node *root=buildTree(a,0,n);
+    bool x=hasPathSum(root,sum);
+    cout<<c;
+    return 0;
+}

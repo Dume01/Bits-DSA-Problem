@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool subsequenceExists(vector<int>& nums, int k) {
+    int n = nums.size();
+    vector<vector<bool>> dp(n + 1, vector<bool>(k + 1, false));
+    
+    // Base case: there exists a subsequence of length zero whose sum is 0
+    for (int i = 0; i <= n; i++) {
+        dp[i][0] = true;
+    }
+    
+    // Fill in the rest of the matrix
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= k; j++) {
+            dp[i][j] = dp[i - 1][j];
+            if (j >= nums[i - 1]) {
+                dp[i][j] = dp[i][j] || dp[i - 1][j - nums[i - 1]];
+            }
+        }
+    }
+    
+    return dp[n][k];
+}
+
+int main() {
+    vector<int> nums = {3,1,5,9,12};
+    int k = 15;
+    if (subsequenceExists(nums, k)) {
+        cout << "Yes, there exists a subsequence whose sum is " << k << endl;
+    } else {
+        cout << "No, there does not exist a subsequence whose sum is " << k << endl;
+    }
+    return 0;
+}

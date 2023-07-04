@@ -1,0 +1,29 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+int main() {
+    printf("Enter the dimension of the array A \n");
+    int m;
+    scanf("%d",&m);
+    int A[m];
+    printf("Enter the elemets of the array A \n");
+    for(int i=0;i<m;i++)
+    {
+        scanf("%d",&A[i]);
+    }
+    int j = 0;
+    for (int i = 0; i < m; i++) {
+        if (A[i] < 0) {
+            if (i != j)
+            {
+                int temp=A[j];
+                A[j]=A[i];
+                A[i]=temp;
+            }    
+            j++;
+        }
+    }
+     for(int i=0;i<m;i++)
+    {
+        printf("%d  ",A[i]);
+    }
+}

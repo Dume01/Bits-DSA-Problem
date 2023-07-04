@@ -1,0 +1,62 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#define int long long
+
+int countZero(int n)
+{
+    int r=0;
+    for(int i=5;i<=n;i=i*5)
+    {
+        r+=n/i;
+    }
+    return r;
+}
+int main() {
+    // Write C code here
+    printf("Enter the dimensions of the array \n");
+    int n;
+    scanf("%lld",&n);
+    
+    int a[n];
+    printf("Enter the elements of the array\n");
+    for(int i=0;i<n;i++)
+    scanf("%lld",&a[i]);
+    
+    int tz[n];
+    for(int i=0;i<n;i++)
+    {
+        tz[i]=countZero(a[i]);
+    }
+    printf("\n");
+    
+    int max=tz[0];
+    for(int i=1;i<n;i++)
+    {
+        if(max<tz[i]) max=tz[i];
+    }
+    
+    int freq[max+1];
+    for(int i=0;i<=max;i++)
+    {
+        freq[i]=0;
+    }
+    for(int i=0;i<n;i++)
+    {
+        freq[tz[i]]++;
+    }
+    printf("\n");
+    for(int i=0;i<=max;i++)
+    {
+        printf("%lld ",freq[i]);
+    }
+    int ans=0;
+    for(int i=0;i<=max;i++)
+    {
+        if(freq[i]>1)
+        {
+            ans+=(freq[i]*(freq[i]-1))/2;
+        }
+    }
+    printf("\n%lld ",ans);
+    return 0;
+}

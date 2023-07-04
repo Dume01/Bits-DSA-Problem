@@ -1,0 +1,41 @@
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter the size of the array: ";
+    cin >> n;
+    int a[n];
+    cout << "Enter the array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    int count = 0;
+    int prefix_xor[n];
+    prefix_xor[0] = a[0];
+    unordered_map<int, int> freq;
+    freq[prefix_xor[0]]++;
+    for (int i = 1; i < n; i++) {
+        prefix_xor[i] = prefix_xor[i-1] ^ a[i];
+        if (prefix_xor[i] == 0) {
+            count++;
+        }
+        if (freq.find(prefix_xor[i]) != freq.end()) {
+            count += freq[prefix_xor[i]];
+        }
+        freq[prefix_xor[i]]++;
+    }
+
+    cout << "The total number of bad subarrays is " << count << endl;
+
+    return 0;
+}
+The program first takes the size of the array and the elements of the array as input from the user.
+ It then calculates the prefix XOR array and uses an unordered_map to keep track of the frequency of each prefix XOR value. For each prefix XOR value, 
+if it is zero, it increments the count by one since it is a bad subarray. If the same prefix XOR value appears more than once, it increments the count by the 
+frequency of that prefix XOR value since all the subarrays between the two occurrences will have XOR value of zero. Finally, it prints the count, which is the total number of bad subarrays.
+
+Note that this program uses an unordered_map to keep track of the frequency of prefix XOR values, which has a time complexity of O(1) for average case lookup. This reduces the time complexity of the program to O(nlogn).

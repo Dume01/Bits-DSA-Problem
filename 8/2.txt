@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+
+int main() {
+    // Write C++ code here
+    cout << "Enter the length of the string\n";
+    int n;
+    cin >> n;
+    cout << "Enter the number\n";
+    string x;
+    cin >> x;
+    x[n-1]=x[0];
+    int mid=n/2;
+    int m1,n1;
+    string m,ab;
+    if(n%2!=0)
+    {   string ww=string(1,x[mid]);
+        int x1=stoi(ww);
+        x1++;
+        char x2=x1+48;
+        x[mid]=x2;
+         m=x.substr(1,mid-1);
+         ab=x.substr(mid+1,mid-1);
+         m1=stoi(m);
+         n1=stoi(ab);
+    }
+    else
+    {
+         m=x.substr(1,mid-1);
+         ab=x.substr(mid,mid-1);
+         m1=stoi(m);
+         n1=stoi(ab);
+        cout << m1 << " " << n1 << endl;
+    }
+    
+    if(n%2!=0)
+    {
+        if(m1<n1)
+        {   int count=0;
+            for(int i=mid+1;i<n-1;i++)
+            {    
+                x[i]=m[count];
+                count++;
+            }
+        }
+        else
+        {
+            int count=0;
+            for(int i=1;i<mid;i++)
+            {   
+                x[i]=ab[count];
+                count++;
+            }
+        }
+        
+    }
+    else
+    {
+        if(m1<n1)
+        {   
+            int count=0;
+            for(int i=1;i<mid;i++)
+            {   cout << "xxx\n";
+                x[i]=ab[count];
+                count++;
+            }
+        }
+        else
+        {
+            int count=0;
+            for(int i=mid;i<n-1;i++)
+            {   cout << "yyy\n";
+                x[i]=m[count];
+                count++;
+            }
+        }
+    }
+    cout << "new number is " <<x;
+    return 0;
+}

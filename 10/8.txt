@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// function to sort array A according to the order of array B
+vector<int> sortA(vector<int> A, vector<int> B){
+    int n = A.size(), m = B.size();
+    
+    // initialize a map to store the frequency of each element of A
+    map<int, int> freq;
+    for(int i=0; i<n; i++)
+        freq[A[i]]++;
+
+    // initialize a vector to store the sorted A elements
+    vector<int> sortedA(n);
+
+    // initialize index variable for sortedA vector
+    int index = 0;
+
+    // loop through all elements of B and add the elements of A which are present in B
+    for(int i=0; i<m; i++){
+        int x = B[i];
+        if(freq.find(x) != freq.end()){
+            for(int j=0; j<freq[x]; j++){
+                sortedA[index++] = x;
+            }
+            freq.erase(x);
+        }
+    }
+
+    // add the remaining elements of A to sortedA
+    for(auto i : freq){
+        int x = i.first, freq_x = i.second;
+        for(int j=0; j<freq_x; j++){
+            sortedA[index++] = x;
+        }
+    }
+
+    return sortedA;
+}
+
+int main(){
+    int n, m;
+    cout<<"Enter the size of array A and B: ";
+    cin>>n>>m;
+
+    vector<int> A(n), B(m);
+
+    cout<<"Enter the elements of array A: ";
+    for(int i=0; i<n; i++)
+        cin>>A[i];
+
+    cout<<"Enter the elements of array B: ";
+    for(int i=0; i<m; i++)
+        cin>>B[i];
+
+    // sort A according to the order of B
+    vector<int> sortedA = sortA(A, B);
+
+    // print the sorted array A
+    cout<<"The sorted array A is: ";
+    for(int i=0; i<n; i++)
+        cout<<sortedA[i]<<" ";
+    cout<<endl;
+
+    return 0;
+}

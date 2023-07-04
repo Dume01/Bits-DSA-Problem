@@ -1,0 +1,129 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <stdbool.h>
+
+struct Node_t
+{
+    int data;
+    struct Node_t *next;
+};
+typedef struct Node_t Node;
+
+Node *createNode(int val)
+{
+    Node *nn=malloc(sizeof(Node));
+    assert(nn!=NULL);
+    nn->data=val;
+    nn->next=NULL;
+    return nn;
+}
+
+Node *addToList(Node *head,int val)
+{
+    Node *nn=createNode(val);
+    if(head==NULL)
+    {
+        return nn;
+    }
+    Node *cur=head;
+    while(cur->next!=NULL)
+        cur=cur->next;
+    cur->next=nn;
+    return nn;
+}
+
+Node *readList(int n)
+{
+    Node *head=NULL;
+    printf("Enter the elements of the LL\n");
+    for(int i=0;i<n;i++)
+    {
+        int x=0;
+        scanf("%d",&x);
+        if(head==NULL)
+        head=addToList(head,x);
+        else
+        addToList(head,x);
+    }
+
+    return head;
+}
+
+
+void printList(Node *head) 
+{
+    Node *ptr = head;
+    while (ptr != NULL) 
+    {
+        printf("%d ", ptr->data);
+        ptr = ptr->next;
+    }
+    printf("\n");
+    return;
+}
+
+void freeList(Node *head)
+{
+    Node *curr,*nxt;
+    curr=head;
+    while(curr!=NULL)
+    {
+        nxt=curr->next;
+        free(curr);
+        curr=nxt;
+    }
+}
+
+int findMedian(Node *head,int nx)
+{
+    int count=0;
+    bool flag=true;
+    if(nx%2==0)
+    flag =true;
+    else
+    flag=false;
+    Node *cur=head;
+    if(flag==false)
+    {
+        count = (nx+1)/2;
+        for(int i=1;i<count;i++)
+        cur=cur->next;
+        return cur->data;
+    }
+    else
+    {
+        count = nx/2;
+        for(int i=1;i<count;i++)
+        cur=cur->next;
+        int med=((cur->data)+(cur->next->data))/2;
+        return med;
+    }
+    return -1;
+}
+
+Node *reverseList(Node *head)
+{
+    Node *curr=head;
+    Node *prev=NULL;
+    while(curr!=NULL)
+    {
+        Node *nxt=curr->next;
+        curr->next=prev;
+        prev = curr;
+        curr=nxt;
+    }
+    return prev;
+}
+
+int main() {
+    int n1;
+    printf("Enter the dimension of LL\n");
+    scanf("%d",&n1);
+    Node *head=readList(n1);
+    printList(head);
+    head=reverseList(head);
+    printList(head);
+    return 0;
+}

@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main(){
+	int n, k;
+	scanf("%d%d",&n,&k);
+    	int a[n];
+    	for (int i = 0; i < n; i++) 
+   	 scanf("%d",&a[i]);
+    	int c = 0;
+    	int pre[n+1],rem[k];
+    	for (int i = 0; i < k; i++)
+    	rem[i]=0;
+    	pre[0]=0;
+    	for (int i = 1; i <= n; i++)
+    		pre[i]=pre[i-1]+a[i-1];
+    	for (int i = 1; i <= n; i++)
+    		rem[pre[i]%k]++;
+    	for (int i = 1; i <=n; i++)
+        	if (pre[i]%k==0) c++;
+    	for (int i = 0; i < k; i++)
+        	if (rem[i]>1)
+            		c+=(rem[i])*(rem[i]-1)/2;
+    	printf("%d",c);
+}

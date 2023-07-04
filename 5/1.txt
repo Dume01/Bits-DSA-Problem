@@ -1,0 +1,50 @@
+#include <stdio.h>
+#define MAX_SIZE 100
+
+int count=0;
+
+void printParenthesis(int n)
+{
+	if (n > 0)
+	 {  
+	    _printParenthesis(0, n, 0, 0); 
+	 }
+		
+	return;
+}
+
+void _printParenthesis(int pos, int n, int open, int close)
+{
+	static char str[MAX_SIZE];
+
+	if (close == n) {
+	    count++;
+		printf("%s \n", str);
+		return;
+	}
+	else {
+		if (open > close) {
+		    
+			str[pos] = '}';
+			_printParenthesis(pos + 1, n, open, close + 1);
+		}
+
+		if (open < n) {
+			str[pos] = '{';
+			_printParenthesis(pos + 1, n, open + 1, close);
+		}
+	}
+}
+
+// Driver program to test above functions
+int main()
+{
+	printf("Enter the number of brackets\n");
+	int n=0;
+	scanf("%d",&n);
+	n/=2;
+	printParenthesis(n);
+	getchar();
+	printf("%d",count);
+	return 0;
+}

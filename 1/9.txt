@@ -1,0 +1,55 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+    printf("Enter the value of k\n");
+    int k=0;
+    scanf("%d",&k);
+    printf("Enter the value of n\n");
+    int n=0;
+    scanf("%d",&n);
+    if(k%2==0||n%2==0)
+    {
+        printf("Invalid Input\n");
+        return 0;
+    }
+    int A[n];
+    printf("Enter the array elements\n");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&A[i]);
+    }
+    int j=0;
+    int a=0;
+    for(int i=0;i<n;i++)
+    {
+        if(A[i]<(k+1)/2)
+        {
+            for(int k=i;k>=(j+1);k--)
+            {
+                int temp=A[k];
+                A[k]=A[k-1];
+                A[k-1]=temp;
+            }
+            j++;
+        }
+    }
+    for(int i=0;i<n;i++)
+    
+    if(A[i]==(k+1)/2)
+    a=i;
+    
+    printf("%d %d\n",j,a);
+    for(int i=a;i>=(j+1);i--)
+    {
+        int temp=A[i];
+        A[i]=A[i-1];
+        A[i-1]=temp;
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",A[i]);
+    }
+    return 0;
+}

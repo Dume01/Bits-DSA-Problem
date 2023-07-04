@@ -1,0 +1,53 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int numOfPlank(int x[],int m,int n)
+{
+    int c=0;
+    for(int i=0;i<n;i++)
+    {
+        c+=x[i]/m;
+    }
+    return c;
+}
+
+int main() {
+    // Write C code here
+    printf("Enter a value of k \n");
+    int k;
+    scanf("%d",&k);
+    printf("Enter the dimensions \n");
+    int n;
+    scanf("%d",&n);
+    int a[n];
+    printf("Enter the elements of the array\n");
+    for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+    int h=a[0];
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]>h)
+        h=a[i];
+    }
+    int l=1;
+    while(l<=h)
+    {
+        int m=(l+h)/2;
+        int xx=numOfPlank(a,m,n);
+        if(xx==k)
+        {
+            printf("%d",m);
+            return 0;
+        }
+        else if(xx<k)
+        {
+            h=m-1;
+        }
+        else
+        {
+            l=m+1;
+        }
+    }
+    printf("0");
+    return 0;
+}

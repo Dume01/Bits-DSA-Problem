@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int groupAnagrams(string strs[], int n) 
+{
+        unordered_map<string,vector<string>> mp;
+        vector<vector<string>> ans;
+        for( int i = 0; i < n; i++ )
+        {
+            string t = strs[i];
+            sort(t.begin(),t.end());
+            mp[t].push_back(strs[i]);
+        }
+        for( auto it : mp ){
+            ans.push_back(it.second);
+        }
+        
+        int c=0;
+        for(int i=0;i<ans.size();i++)
+        {
+            if(ans[i].size()>1)
+            {
+                int nx=ans[i].size();
+                int xx=(nx)*(nx-1)/2;
+                c+=xx;
+            }
+        }
+        return c;
+    }
+
+int main() {
+    // Write C++ code here
+    cout << "Enter the length of the array\n";
+    int n;
+    cin >> n;
+    cout << "Enter the words\n";
+    string x[n];
+    for(int i=0;i<n;i++)
+    cin >> x[i];
+    int x1=groupAnagrams(x,n);
+    cout << x1;
+    return 0;
+}

@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct Node_dll
+{
+   int data;
+   struct Node_dll *next;
+   struct Node_dll *prev;
+};
+typedef struct Node_dll Dll;
+
+Dll *createNode(int val)
+{
+    Dll *nn=malloc(sizeof(Dll));
+    nn->data=val;
+    nn->next=NULL;
+    nn->prev=NULL;
+    return nn;
+}
+
+Dll *addList(Dll *head,int val)
+{
+    Dll *nn=createNode(val);
+    if(head==NULL)
+    return nn;
+    Dll *curr=head;
+    while(curr->next!=NULL)
+    curr=curr->next;
+    curr->next=nn;
+    nn->prev=curr;
+    return nn;
+}
+
+Dll *readList()
+{
+    int n;
+    printf("Enter the initial dimension\n");
+    scanf("%d",&n);
+    printf("Enter the elements in the dll\n");
+    Dll *head=NULL;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        scanf("%d",&x);
+        if(head==NULL)
+        head=addList(head,x);
+        else
+        addList(head,x);
+    }
+    return head;
+}
+
+void printList(Dll *head)
+{
+    Dll *curr=head;
+    while(curr!=NULL)
+    {
+        printf("%d ",curr->data);
+        curr=curr->next;
+    }
+}
+
+int main() {
+    // Write C code here
+    Dll *head=readList();
+    printf("Enter the target\n");
+    int tar;
+    scanf("%d",&tar);
+    Dll *last;
+    Dll *curr=head;
+    while(curr->next!=NULL)
+    curr=curr->next;
+    last=curr;
+    curr=head;
+    while(last!=head)
+    {   int sum=last->data+curr->data;
+        if(tar==sum)
+        {   
+            printf("1");
+            return 0;
+        }
+        else if(sum<tar)
+        curr=curr->next;
+        else
+        last=last->prev;
+    }
+    printf("0");
+    return 0;
+}

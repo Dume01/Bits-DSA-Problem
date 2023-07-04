@@ -1,0 +1,62 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *left;
+    Node *right;
+    
+    Node(int val)
+    {
+        data=val;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+Node *buildTree(int a[],int i,int n)
+{   
+    if(i>=n)
+    {
+        return NULL;
+    }
+    Node *root=new Node(a[i]);
+    root->left=buildTree(a,2*i+1,n);
+    root->right=buildTree(a,2*i+2,n);
+    return root;
+}
+
+int c=0;
+void inOrder(Node* root,int k)
+{
+	if (root != NULL)
+	{
+		inOrder(root->right,k);
+		if(root->data!=-1)
+		{
+		    c++;
+		    if(c==k)
+		    cout << root->data <<" ";
+		}
+		inOrder(root->left,k);
+	}
+}
+
+int main() {
+    // Write C++ code here
+    cout << "enter the value of the nodes\n";
+    int n;
+    cin >> n;
+    int a[n];
+    int k;
+    cout<< "enter k\n";
+    cin >> k;
+    cout << "enter the values of the nodes\n";
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    Node *root=buildTree(a,0,n);
+    inOrder(root,k);
+    return 0;
+}
